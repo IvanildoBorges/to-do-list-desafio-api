@@ -8,9 +8,9 @@ datasource db {
 }
 
 model Tarefa {
-  id          String   @id @default(uuid())
-  descricao   String
-  concluida   Boolean
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  descricao     String    @db.VarChar(100)
+  concluida     Boolean
+  criadoEm      DateTime  @default(now())
+  atualizadoEm  DateTime  @updatedAt @default(now())
 }

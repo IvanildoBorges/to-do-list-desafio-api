@@ -60,7 +60,7 @@ npm install @prisma/client
 
 Rodar a migração para criar as tabelas definidas no Prisma:
 ```bash
-npx prisma migrate dev
+npx prisma migrate dev --name tarefas
 ```
 
 Caso queira visualizar o banco de dados e os registros:
