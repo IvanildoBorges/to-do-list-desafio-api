@@ -28,7 +28,7 @@ app.use(helmet());                                  // Protege contra ataques co
 app.use(rateLimiter);                               // Limita requisições para prevenir ataques DoS
 app.use(                                            // Configuração de CORS
     cors({ 
-        origin: ['https://todo-list.com.br', 'http://localhost:3000'],
+        origin: ['https://todo-list-6tc0.onrender.com/', 'http://localhost:5173/'],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Authorization', 'Content-Type'],
         credentials: true
