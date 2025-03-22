@@ -1,0 +1,49 @@
+{
+  "name": "to-do-list-desafio-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node dist/server.js",
+    "dev": "nodemon src/server.ts",
+    "build": "npx tsc src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanildoBorges/to-do-list-desafio-api.git"
+  },
+  "keywords": [
+    "Tarefas",
+    "API",
+    "CRUD"
+  ],
+  "author": "Ivanildo Borges",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IvanildoBorges/to-do-list-desafio-api/issues"
+  },
+  "homepage": "https://github.com/IvanildoBorges/to-do-list-desafio-api#readme",
+  "description": "API RESTFul para gerenciamento de tarefas",
+  "dependencies": {
+    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.14.0",
+    "xss": "^1.0.15",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/express-rate-limit": "^5.1.3",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.13.10",
+    "@types/pg": "^8.11.11",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2"
+  }
+}
