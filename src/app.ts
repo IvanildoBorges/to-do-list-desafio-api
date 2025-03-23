@@ -2,8 +2,8 @@ import cors from 'cors';
 import dotenv from "dotenv";
 import express from 'express';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import { errorHandler } from "./middlewares/errorHandler.middleware";
+import logsMorgan from './middlewares/logs.middleware';
 import rateLimiter from './middlewares/rateLimiter.middleware';
 import sanitizeMiddleware from './middlewares/sanitize.middleware';
 import routes from './routes/index';
@@ -14,11 +14,7 @@ dotenv.config();
 const app = express();
 
 // Configuração de logs
-if (process.env.NODE_ENV === 'production') {
-    app.use(morgan('common'));
-} else {
-    app.use(morgan('dev'));
-}
+app.use(logsMorgan());
 
 // Middleware globais
 app.use(express.json({ limit: '10kb' }));           // Suporta JSON e limita tamanho das requisições
