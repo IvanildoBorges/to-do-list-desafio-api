@@ -1,10 +1,10 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { homeController } from "../controllers/home.controller";
 
 const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
-  res.status(200).send("<h1>Hello World!</h1>");
-});
+// Rota inicial
+router.get('/', homeController);
 
 // Demais rotas abaixo
 
