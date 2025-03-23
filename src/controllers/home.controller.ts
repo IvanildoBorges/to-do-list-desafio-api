@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler from "../middlewares/chamadaAssicrona.middleware";
+import { gerarRespostaDeErro } from "../utils/geraRespostasDeErro";
 
 const Elemento = () => {
     return (
@@ -33,10 +34,7 @@ const saudacao = async (req: Request, res: Response): Promise<Response> => {
     try {
         return res.status(200).send(Elemento());
     } catch (error: any) {
-        return res.status(500).json({ 
-            sucesso: false, 
-            mensagem: `Erro interno no servidor! ${error.message}`
-        });
+        return gerarRespostaDeErro(res, 500, `Erro interno no servidor! ${error.message}`);
     }
 };
 
