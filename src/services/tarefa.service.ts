@@ -1,24 +1,21 @@
 import prisma from "../lib/prisma";
 import { Tarefa } from "../models/tarefa.model";
+import { gerarRespostaDeErroPrisma } from "../utils/geraRespostasDeErro";
 
 const tarefasService = {
   getTarefa: async (id: string): Promise<Tarefa | null> => {
     try {
       return await prisma.tarefa.findUnique({ where: { id } });
-    } catch (error) {
-      console.error(error);
-      process.exit(1);
+    } catch (error: unknown) {
+      throw gerarRespostaDeErroPrisma(error);
     }
   },
 
   getTarefas: async (): Promise<Tarefa[] | null> => {
     try {
-      return await prisma.tarefa.findMany(); // Retorna todas as tarefas se `id` não for passado
+      return await prisma.tarefa.findMany();
     } catch (error) {
-      console.error(error);
-      process.exit(1);
-    } finally {
-      await prisma.$disconnect();
+      throw gerarRespostaDeErroPrisma(error);
     }
   },
 
@@ -26,10 +23,7 @@ const tarefasService = {
     try {
       return await prisma.tarefa.findMany({ where: { concluida: true } });
     } catch (error) {
-      console.error(error);
-      process.exit(1);
-    } finally {
-      await prisma.$disconnect();
+      throw gerarRespostaDeErroPrisma(error);
     }
   },
 
@@ -37,10 +31,7 @@ const tarefasService = {
     try {
       return await prisma.tarefa.delete({ where: { id } });
     } catch (error) {
-      console.error(error);
-      process.exit(1);
-    } finally {
-      await prisma.$disconnect();
+      throw gerarRespostaDeErroPrisma(error);
     }
   },
 
@@ -48,27 +39,15 @@ const tarefasService = {
     try {
       return await prisma.tarefa.deleteMany();
     } catch (error) {
-      console.error(error);
-      process.exit(1);
-    } finally {
-      await prisma.$disconnect();
+      throw gerarRespostaDeErroPrisma(error);
     }
   },
 
-  createTarefa: async (id: string, descricao: string, concluida: boolean): Promise<Tarefa> => {
+  createTarefa: async (tarefaDaRequisicao: Tarefa): Promise<Tarefa> => {
     try {
-      return await prisma.tarefa.create({
-        data: { 
-            id,
-            descricao, 
-            concluida
-        },
-      });
-    } catch (error) {
-      console.error(error);
-      process.exit(1);
-    } finally {
-      await prisma.$disconnect();
+      return await prisma.tarefa.create({ data: tarefaDaRequisicao });
+    } catch (error: unknown) {
+      throw gerarRespostaDeErroPrisma(error);
     }
   }
 }

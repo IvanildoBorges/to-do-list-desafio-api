@@ -14,8 +14,8 @@ const router = Router();
 router.get("/", lista);
 router.get("/tarefa/:id", listaUma);
 router.get("/concluidas", listaCompletas);
-router.post("/", cria);
-router.delete("/:id", deleta);
-router.delete("/", deletaTudo);
+router.post("/nova", cria);
+router.delete("/excluir/", deleta);
+router.delete("/excluir/tudo", deletaTudo);
 
 export default router;

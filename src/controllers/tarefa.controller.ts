@@ -38,7 +38,7 @@ const listarTarefasConcluidas = async (req: Request, res: Response) => {
     try {
         // Verifica se existem tarefas
         const tarefasConcluidas = await tarefasService.getTarefasConcluidas();
-        if (!tarefasConcluidas || tarefasConcluidas.length < 1) return gerarRespostaDeErro(res, 404, "Nenhuma tarefa concluída encontrada!");
+        if (tarefasConcluidas.length < 1) return gerarRespostaDeErro(res, 404, "Nenhuma tarefa concluída encontrada!");
         
         return res.status(200).json({ sucesso: true, dados: tarefasConcluidas });
     } catch (error: any) {
@@ -48,7 +48,7 @@ const listarTarefasConcluidas = async (req: Request, res: Response) => {
   
 const excluirTarefa = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const id = req.query.id as string;
         // Validando a tipagem dos dados antes de prosseguir
         validaId(id);
 
@@ -67,7 +67,7 @@ const excluirTodasTarefas = async (req: Request, res: Response) => {
     try {
         // Verifica se as tarefas foram excluídas
         const tarefasExcluidas = await tarefasService.deleteAllTarefas();
-        if (!tarefasExcluidas) return gerarRespostaDeErro(res, 404, "Tarefas não encontradas para exclusão!");
+        if (!tarefasExcluidas || tarefasExcluidas.count < 1) return gerarRespostaDeErro(res, 404, "Tarefas não encontradas para exclusão!");
 
         return res.status(200).json({ sucesso: true, dados: "Tarefas excluídas com sucesso!" });
     } catch (error: any) {
@@ -81,11 +81,7 @@ const createTarefa = async (req: Request, res: Response) => {
         // Validando a tipagem dos dados antes de prosseguir
         validaTarefa(tarefa);
         
-        const novaTarefa = await tarefasService.createTarefa(
-            tarefa.id, 
-            tarefa.descricao, 
-            tarefa.concluida
-        );
+        const novaTarefa = await tarefasService.createTarefa(tarefa);
         return res.status(201).json({ sucesso: true, dados: novaTarefa });
     } catch (error: any) {
         return gerarRespostaDeErro(res, 500, `Erro ao criar tarefa! ${error.message}`);
