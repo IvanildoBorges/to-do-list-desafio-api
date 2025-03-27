@@ -78,14 +78,15 @@ A API estará rodando localmente em `http://localhost:3000` (ou a porta definida
 
 ## 📖 Endpoints da API
 
-| Método  | Rota             | Descrição                        |
-|---------|----------------|--------------------------------|
-| GET     | `/tarefas`      | Lista todas as tarefas        |
-| GET     | `/tarefas/:id`  | Busca uma tarefa pelo ID      |
-| POST    | `/tarefas`      | Cria uma nova tarefa          |
-| PUT     | `/tarefas/:id`  | Atualiza uma tarefa existente |
-| DELETE  | `/tarefas/:id`  | Remove uma tarefa             |
-| DELETE  | `/tarefas/all`  | Remove todas as tarefas       |
+| Método  | Rota                         | Descrição                         |
+|---------|------------------------------|-----------------------------------|
+| GET     | `/tarefas/`                  | Lista todas as tarefas            |
+| GET     | `/tarefas/tarefa/:id`        | Busca uma tarefa pelo ID          |
+| GET     | `/tarefas/concluidas`        | Busca todas as tarefas concluídas |
+| POST    | `/tarefas/nova`              | Cria uma nova tarefa              |
+| PUT     | `/tarefas/tarefa/atualizar/` | Atualiza uma tarefa existente     |
+| DELETE  | `/tarefas/excluir/`          | Remove uma tarefa                 |
+| DELETE  | `/tarefas/excluir/tudo`      | Remove todas as tarefas           |
 
 ## 🛡️ Segurança e Proteção
 
