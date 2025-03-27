@@ -13,7 +13,13 @@ const tarefasService = {
 
   getTarefas: async (): Promise<Tarefa[] | null> => {
     try {
-      return await prisma.tarefa.findMany();
+      return await prisma.tarefa.findMany(
+        {
+          orderBy: {
+            criadoEm: "asc", // Ordena da mais nova para a mais antiga
+          },
+        }
+      );
     } catch (error) {
       throw gerarRespostaDeErroPrisma(error);
     }
@@ -46,6 +52,14 @@ const tarefasService = {
   createTarefa: async (tarefaDaRequisicao: Tarefa): Promise<Tarefa> => {
     try {
       return await prisma.tarefa.create({ data: tarefaDaRequisicao });
+    } catch (error: unknown) {
+      throw gerarRespostaDeErroPrisma(error);
+    }
+  },
+
+  updateTarefa: async (tarefa: Tarefa): Promise<Tarefa | null> => {
+    try {
+      return await prisma.tarefa.update({ data:  tarefa, where: { id: tarefa.id }, });
     } catch (error: unknown) {
       throw gerarRespostaDeErroPrisma(error);
     }

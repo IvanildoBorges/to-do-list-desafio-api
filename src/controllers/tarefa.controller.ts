@@ -53,8 +53,8 @@ const excluirTarefa = async (req: Request, res: Response) => {
         validaId(id);
 
         // Verifica se a tarefa foi excluída
-        const tarefas = await tarefasService.getTarefa(id);
-        if (!tarefas) return gerarRespostaDeErro(res, 404, "Tarefa não encontrada para exclusão!");
+        const tarefa = await tarefasService.getTarefa(id);
+        if (!tarefa) return gerarRespostaDeErro(res, 404, "Tarefa não encontrada para exclusão!");
         
         const tarefaExcluida = await tarefasService.deleteTarefaById(id);
         return res.status(200).json({ sucesso: true, dados: "Tarefa excluída com sucesso!" });
@@ -75,7 +75,7 @@ const excluirTodasTarefas = async (req: Request, res: Response) => {
     }
 };
   
-const createTarefa = async (req: Request, res: Response) => {
+const criaTarefa = async (req: Request, res: Response) => {
     try {
         const tarefa: Tarefa = req.body.tarefa;
         // Validando a tipagem dos dados antes de prosseguir
@@ -88,9 +88,37 @@ const createTarefa = async (req: Request, res: Response) => {
     }
 };
 
+const atualizaTarefa = async (req: Request, res: Response) => {
+    try {
+        const id = req.query.id as string;
+        const novosDados: Tarefa = {
+            id: req.body.tarefa.id,
+            descricao: req.body.tarefa.descricao,
+            concluida: req.body.tarefa.concluida,
+            criadoEm: req.body.tarefa.criadoEm ? new Date(req.body.tarefa.criadoEm) : null,
+            atualizadoEm: req.body.tarefa.atualizadoEm ? new Date(req.body.tarefa.atualizadoEm) : null
+        };
+
+        // Validando a tipagem dos dados antes de prosseguir
+        validaId(id);
+        validaTarefa(novosDados);
+
+        // Verifica se a tarefa foi atualizada
+        const tarefaAtualizada: Tarefa | null = await tarefasService.updateTarefa(novosDados);
+        if (!tarefaAtualizada) {
+            return gerarRespostaDeErro(res, 404, "Tarefa não encontrada para atualização!");
+        }
+          
+        return res.status(200).json({ sucesso: true, dados: tarefaAtualizada });
+    } catch (error: any) {
+        return gerarRespostaDeErro(res, 500, `Erro ao atualizar tarefa! ${error.message}`);
+    }
+};
+
 export const lista = asyncHandler(listarTarefas);
 export const listaUma = asyncHandler(listarUmaTarefa);
 export const listaCompletas = asyncHandler(listarTarefasConcluidas);
 export const deleta = asyncHandler(excluirTarefa);
 export const deletaTudo = asyncHandler(excluirTodasTarefas);
-export const cria = asyncHandler(createTarefa);
+export const cria = asyncHandler(criaTarefa);
+export const atualiza = asyncHandler(atualizaTarefa);
