@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/client"
 }
 
 datasource db {
@@ -9,9 +8,9 @@ datasource db {
 }
 
 model Tarefa {
-  id            String    @id @db.Uuid
-  descricao     String    @db.VarChar(100)
-  concluida     Boolean
-  criadoEm      DateTime?  @default(now())
-  atualizadoEm  DateTime?  @updatedAt @default(now())
+  id           String    @id @db.Uuid
+  descricao    String    @db.VarChar(100)
+  concluida    Boolean
+  criadoEm     DateTime? @default(now())
+  atualizadoEm DateTime? @default(now()) @updatedAt
 }
