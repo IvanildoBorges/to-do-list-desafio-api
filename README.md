@@ -63,6 +63,13 @@ Rodar a migração para criar as tabelas definidas no Prisma:
 npx prisma migrate dev --name tarefas
 ```
 
+Para usar o modelo Tarefa como tipo no typescript `(import { Tarefa } from '../src/generated/client';)`, execute:
+```bash
+npx prisma generate
+```
+
+Isso criar a pasta generated com o cliente prisma para que o typescript possa inferir corretamente o type Tarefa do modelo Tarefa do Prisma.
+
 Caso queira visualizar o banco de dados e os registros:
 ```bash
 npx prisma studio

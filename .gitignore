@@ -139,3 +139,6 @@ dist
 
 # files
 package-lock.json
+
+# folders
+generated/

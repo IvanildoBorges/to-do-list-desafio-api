@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { PrismaClientInitializationError, PrismaClientKnownRequestError, PrismaClientRustPanicError, PrismaClientValidationError } from "@prisma/client/runtime/library";
 import { Response } from "express";
 
 // Função auxiliar para respostas padronizadas de erro em controllers
@@ -8,7 +8,7 @@ export const gerarRespostaDeErro = (res: Response, status: number, mensagem: str
 
 // Função auxiliar para para tratar erros do Prisma
 export const gerarRespostaDeErroPrisma = (error: unknown): Error => {
-  if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  if (error instanceof PrismaClientKnownRequestError) {
     switch (error.code) {
       case "P2002":
         return new Error("Tarefa já criada com esse id!");
@@ -17,11 +17,11 @@ export const gerarRespostaDeErroPrisma = (error: unknown): Error => {
       default:
         return new Error(error.message);
     }
-  } else if (error instanceof Prisma.PrismaClientValidationError) {
+  } else if (error instanceof PrismaClientValidationError) {
     return new Error("Erro de validação: Dados inválidos para o banco de dados.");
-  } else if (error instanceof Prisma.PrismaClientRustPanicError) {
+  } else if (error instanceof PrismaClientRustPanicError) {
     return new Error("Erro crítico: Reinicie a aplicação!");
-  } else if (error instanceof Prisma.PrismaClientInitializationError) {
+  } else if (error instanceof PrismaClientInitializationError) {
     return new Error("Erro ao inicializar: Verifique a conexão com o banco!");
   } else {
     return new Error(`Erro desconhecido: ${String(error)}`);
