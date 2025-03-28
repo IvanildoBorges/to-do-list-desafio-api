@@ -1,5 +1,5 @@
 import cors from 'cors';
-import dotenv from "dotenv";
+import * as dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import { errorHandler } from "./middlewares/errorHandler.middleware";
