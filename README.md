@@ -51,12 +51,21 @@ npx prisma init
 
 Isso criará um diretório `prisma/` com um arquivo `schema.prisma` para configurar o banco de dados e também um arquivo `.env` na raiz do projeto.
 
+### 4️⃣ Configurar variáveis ambiente
+
+No arquivo .env você precisará definir 3 variáveis ambiente (`NODE_ENV` para logs morgan, `PORT` para a porta que a api vai rodar e `DATABASE_URL` com o endereço de conexão com o banco de dados) :
+```bash
+NODE_ENV=dev
+PORT=3000
+DATABASE_URL="postgresql://usuario:senha@host:porta/banco?schema=public"
+```
+
 Instalar o cliente Prisma para que a aplicação possa interagir com o banco de dados:
 ```bash
 npm install @prisma/client
 ```
 
-### 4️⃣ Criar as tabelas no banco de dados
+### 5️⃣ Criar as tabelas no banco de dados
 
 Rodar a migração para criar as tabelas definidas no Prisma:
 ```bash
@@ -75,7 +84,7 @@ Caso queira visualizar o banco de dados e os registros:
 npx prisma studio
 ```
 
-### 5️⃣ Executar o projeto
+### 6️⃣ Executar o projeto
 
 ```bash
 npm run dev
